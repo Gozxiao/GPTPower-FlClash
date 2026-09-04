@@ -9,7 +9,8 @@ jobs:
         with: { distribution: temurin, java-version: '17' }
       - uses: gradle/actions/setup-gradle@v4
         with: { gradle-version: '9.5.1' }
-      - run: "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-37.0" "build-tools;37.0.0"
+      - run: |
+          "$ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager" "platforms;android-37.0" "build-tools;37.0.0"
       - run: gradle wrapper --gradle-version 9.5.1
       - run: chmod +x gradlew && ./gradlew assembleRelease --no-daemon
       - name: Package artifacts
