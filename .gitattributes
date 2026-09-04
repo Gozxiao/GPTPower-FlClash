@@ -1,0 +1,4 @@
+*.sh text eol=lf
+module.prop text eol=lf
+config.conf text eol=lf
+*.yml text eol=lf

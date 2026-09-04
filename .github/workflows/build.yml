@@ -1,15 +1,27 @@
-name: Build APK
-on: [push, pull_request, workflow_dispatch]
+name: Build GPTPower
+on: [push, workflow_dispatch]
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-java@v4
-        with: { distribution: temurin, java-version: '21' }
+        with: { distribution: temurin, java-version: '17' }
       - uses: gradle/actions/setup-gradle@v4
         with: { gradle-version: '9.5.1' }
       - run: sdkmanager "platforms;android-37.0" "build-tools;37.0.0"
-      - run: gradle :app:assembleDebug :app:assembleRelease
+      - run: gradle wrapper --gradle-version 9.5.1
+      - run: chmod +x gradlew && ./gradlew assembleRelease --no-daemon
+      - name: Package artifacts
+        run: |
+          mkdir -p ksu/apk
+          cp app/build/outputs/apk/release/app-release.apk GPTPower-LSPosed.apk
+          cp GPTPower-LSPosed.apk ksu/apk/GPTPower-LSPosed.apk
+          chmod 0755 ksu/*.sh ksu/scripts/*.sh
+          (cd ksu && zip -r ../GPTPower-KSU.zip . -x 'apk/.gitkeep')
+          unzip -Z1 GPTPower-KSU.zip | grep -qx 'module.prop'
+          unzip -Z1 GPTPower-KSU.zip | grep -qx 'apk/GPTPower-LSPosed.apk'
       - uses: actions/upload-artifact@v4
-        with: { name: GPTPower-APK, path: app/build/outputs/apk/**/*.apk }
+        with: { name: GPTPower-LSPosed.apk, path: GPTPower-LSPosed.apk }
+      - uses: actions/upload-artifact@v4
+        with: { name: GPTPower-KSU.zip, path: GPTPower-KSU.zip }
