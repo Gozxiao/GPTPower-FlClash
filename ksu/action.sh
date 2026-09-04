@@ -4,15 +4,26 @@ LOGDIR=/data/adb/gptpower/log
 mkdir -p "$LOGDIR"
 
 "$MODDIR/scripts/diagnostics.sh"
+CHOICE=1
 echo
-echo "1. Repair Power Assistant = 5"
-echo "2. Start FlClash VPN silently"
-echo "3. Stop FlClash VPN silently"
-echo "4. Test VPN status"
-echo "5. Reinstall embedded LSPosed APK"
-echo "6. Save full diagnostics log"
-printf "Select [1-6]: "
-read -r CHOICE
+echo "Volume Up: next item"
+echo "Volume Down: run selected item"
+while true; do
+  case "$CHOICE" in
+    1) LABEL="Repair Power Assistant = 5" ;;
+    2) LABEL="Start FlClash VPN silently" ;;
+    3) LABEL="Stop FlClash VPN silently" ;;
+    4) LABEL="Test VPN status" ;;
+    5) LABEL="Reinstall embedded LSPosed APK" ;;
+    6) LABEL="Save full diagnostics log" ;;
+  esac
+  echo "Selected $CHOICE: $LABEL"
+  EVENT=$(getevent -qlc 1 2>/dev/null)
+  case "$EVENT" in
+    *KEY_VOLUMEUP*DOWN*) CHOICE=$((CHOICE % 6 + 1)) ;;
+    *KEY_VOLUMEDOWN*DOWN*) break ;;
+  esac
+done
 
 case "$CHOICE" in
   1) "$MODDIR/scripts/power-fix.sh" ;;

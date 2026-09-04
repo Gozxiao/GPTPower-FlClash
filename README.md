@@ -30,7 +30,7 @@ LSPosed 不调用 ChatGPT Activity、`input keyevent` 或 `cmd voiceinteraction 
 
 ## KernelSU 操作菜单
 
-在 KernelSU 中点击 GPTPower 的“操作”，可修复电源键设置、启动/关闭/检测 VPN、重装内置 APK并输出诊断日志。
+在 KernelSU 中点击 GPTPower 的“操作”：短按音量加切换项目，短按音量减执行；可修复电源键设置、启动/关闭/检测 VPN、重装内置 APK并输出诊断日志。
 
 ## 构建
 

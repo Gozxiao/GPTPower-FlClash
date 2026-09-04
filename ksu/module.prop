@@ -1,6 +1,6 @@
 id=gptpower
 name=GPTPower
-version=1.0.0
-versionCode=3
+version=1.0.1
+versionCode=4
 author=Gozxiao
 description=Prepare FlClash VPN before the system launches ChatGPT Assistant.

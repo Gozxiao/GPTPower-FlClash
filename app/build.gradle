@@ -4,7 +4,7 @@ android {
     namespace 'cn.hui.gptpower'
     compileSdk 37
     buildToolsVersion '37.0.0'
-    defaultConfig { applicationId 'cn.hui.gptpower'; minSdk 26; targetSdk 37; versionCode 3; versionName '1.0.0' }
+    defaultConfig { applicationId 'cn.hui.gptpower'; minSdk 26; targetSdk 37; versionCode 4; versionName '1.0.1' }
     buildTypes { release { signingConfig signingConfigs.debug } }
     compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
     packaging { resources { merges += 'META-INF/xposed/*' } }

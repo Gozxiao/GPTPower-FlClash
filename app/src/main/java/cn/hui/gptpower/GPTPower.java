@@ -35,7 +35,12 @@ public final class GPTPower extends XposedModule {
   private static final AtomicInteger START_FAILURES = new AtomicInteger();
   private static final ThreadLocal<Boolean> BYPASS = ThreadLocal.withInitial(() -> false);
 
+  @Override public void onModuleLoaded(ModuleLoadedParam param) {
+    log(Log.INFO, TAG, "Module loaded");
+  }
+
   @Override public void onPackageReady(PackageReadyParam param) {
+    log(Log.INFO, TAG, "Package ready: " + param.getPackageName());
     if (!"system".equals(param.getPackageName())) return;
     OWNED.set("1".equals(getGlobal(OWNED_SETTING)));
     hookPowerAssist(param.getClassLoader());
